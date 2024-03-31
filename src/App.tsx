@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  Button,
+  ConfigProvider,
+  Divider,
+  Form,
+  Input,
+  Layout,
+  Space,
+  Table,
+  Typography,
+  theme,
+} from 'antd'
 
-function App() {
-  const [count, setCount] = useState(0)
+import classes from './App.module.css'
+import { GithubOutlined } from '@ant-design/icons'
+import { TagDisplayTable } from './components/TagDisplayTable/TagDisplayTable'
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+const App = () => (
+  <ConfigProvider
+    theme={{
+      algorithm: theme.defaultAlgorithm,
+      components: {
+        Layout: {
+          headerBg: 'transparent',
+        },
+      },
+    }}
+  >
+    <Layout className={classes.root}>
+      <Layout.Header className={classes.header}>
+        <h1 className={classes.title}>Stackoverflow Tag Display</h1>
+      </Layout.Header>
+      <Layout.Content className={classes.content}>
+        <TagDisplayTable />
+      </Layout.Content>
+      <Layout.Footer>
+        <Divider />
+        <a href='https://github.com/goodideagiver/stackoverflow-tag-browser'>
+          <GithubOutlined /> Project repository
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      </Layout.Footer>
+    </Layout>
+  </ConfigProvider>
+)
 
 export default App
