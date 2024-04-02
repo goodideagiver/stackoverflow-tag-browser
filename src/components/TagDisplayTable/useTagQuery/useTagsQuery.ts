@@ -20,12 +20,9 @@ export const useTagsQuery = () => {
 
   const onChange: TableProps<TableData>['onChange'] = (
     pagination,
-    sorter,
+    _,
     extra
   ) => {
-    console.log('params', pagination, sorter, extra)
-    console.log('sorter', sorter)
-
     let sort: QueryParams['sort'] = 'popular'
 
     let order: QueryParams['order'] = 'desc'
