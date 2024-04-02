@@ -2,7 +2,7 @@ import { objectToQueryParams } from './objectToQueryParams'
 
 const API_URL = 'https://api.stackexchange.com/2.3/tags'
 
-type TagResponse = {
+export type TagResponse = {
   items: {
     name: string
     count: number

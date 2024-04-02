@@ -1,5 +1,9 @@
 import { TableColumnsType, TableProps } from 'antd'
-import { QueryParams, getTagsFromApi } from './getTagsFromApi/getTagsFromApi'
+import {
+  QueryParams,
+  TagResponse,
+  getTagsFromApi,
+} from './getTagsFromApi/getTagsFromApi'
 import { TableData } from '../TagDisplayTable'
 import { useSearchParams } from 'react-router-dom'
 import { SorterResult } from 'antd/es/table/interface'
@@ -12,7 +16,7 @@ const API_URL = 'https://api.stackexchange.com/2.3/tags'
 
 export const useTagsQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [data, setData] = useState([])
+  const [data, setData] = useState<TagResponse['items']>([])
 
   const onChange: TableProps<TableData>['onChange'] = (
     pagination,

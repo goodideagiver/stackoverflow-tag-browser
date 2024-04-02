@@ -3,6 +3,8 @@ import { Key } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { QueryParams, useTagsQuery } from './useTagQuery/useTagsQuery'
 
+import classes from './TagDisplayTable.module.css'
+
 export type TableData = {
   key: Key
   name: string
@@ -45,18 +47,21 @@ export const TagDisplayTable = () => {
   console.log(data)
 
   return (
-    <Space direction='vertical'>
-      <Table
-        columns={columns}
-        dataSource={data}
-        onChange={onChange}
-        scroll={{ y: 240 }}
-        pagination={{
-          showQuickJumper: true,
-          defaultCurrent: 1,
-          total: 500,
-        }}
-      />
-    </Space>
+    <Table
+      className={classes.root}
+      columns={columns}
+      dataSource={data.map(({ count, name }) => ({
+        count,
+        name,
+        key: count + name,
+      }))}
+      onChange={onChange}
+      scroll={{ y: 240 }}
+      pagination={{
+        showQuickJumper: true,
+        defaultCurrent: 1,
+        total: 500,
+      }}
+    />
   )
 }
