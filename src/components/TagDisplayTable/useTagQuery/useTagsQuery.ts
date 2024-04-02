@@ -1,22 +1,31 @@
-import { TableColumnsType, TableProps } from 'antd'
-import {
-  QueryParams,
-  TagResponse,
-  getTagsFromApi,
-} from './getTagsFromApi/getTagsFromApi'
-import { TableData } from '../TagDisplayTable'
-import { useSearchParams } from 'react-router-dom'
+import { TableProps } from 'antd'
 import { SorterResult } from 'antd/es/table/interface'
+import { useSearchParams } from 'react-router-dom'
 import useSWR from 'swr'
-import { useEffect, useState } from 'react'
+import { TableData } from '../TagDisplayTable'
+import { API_URL, DEFAULT_SEARCH_PARAMS } from './constants'
+import { fetcher } from './fetcher'
+import { objectToQueryParams } from './objectToQueryParams'
 
-type Columns = TableColumnsType<TableData>
+export type TagResponse = {
+  items: {
+    name: string
+    count: number
+  }[]
+  has_more: boolean
+  quota_max: number
+  quota_remaining: number
+}
 
-const API_URL = 'https://api.stackexchange.com/2.3/tags'
+export type QueryParams = {
+  page?: number
+  pageSize?: number
+  sort?: 'popular' | 'name'
+  order?: 'asc' | 'desc'
+}
 
 export const useTagsQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [data, setData] = useState<TagResponse['items']>([])
 
   const onChange: TableProps<TableData>['onChange'] = (
     pagination,
@@ -52,17 +61,28 @@ export const useTagsQuery = () => {
     })
   }
 
-  const page = Number(searchParams.get('page')) || 1
-  const pageSize = Number(searchParams.get('pagesize')) || 10
-  const sort = searchParams.get('sort') || 'popular'
-  const order = searchParams.get('order') || 'desc'
+  const page = Number(searchParams.get('page')) || DEFAULT_SEARCH_PARAMS.page
+  const pageSize =
+    Number(searchParams.get('pagesize')) || DEFAULT_SEARCH_PARAMS.pageSize
+  const sort = searchParams.get('sort') || DEFAULT_SEARCH_PARAMS.sort
+  const order = searchParams.get('order') || DEFAULT_SEARCH_PARAMS.order
 
-  useEffect(() => {
-    getTagsFromApi({ page, pageSize, sort, order }).then((data) => {
-      console.log('data', data)
-      setData(data.items)
-    })
-  }, [page, pageSize, sort, order])
+  const fetchUrl = `${API_URL}?${objectToQueryParams({ page, order, pageSize, sort, site: 'stackoverflow' })}`
 
-  return { onChange, data }
+  console.log('fetchUrl', fetchUrl)
+
+  const swrProps = useSWR<TagResponse>(fetchUrl, fetcher)
+
+  const data =
+    (swrProps.data?.items &&
+      swrProps.data?.items.map(
+        ({ name, count }: { name: string; count: number }) => ({
+          key: name + count,
+          name,
+          count,
+        })
+      )) ||
+    swrProps.data
+
+  return { onChange, ...swrProps, data }
 }

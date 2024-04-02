@@ -1,20 +1,9 @@
-import {
-  Button,
-  ConfigProvider,
-  Divider,
-  Form,
-  Input,
-  Layout,
-  Space,
-  Table,
-  Typography,
-  theme,
-} from 'antd'
+import { ConfigProvider, Divider, Layout, theme } from 'antd'
 
-import classes from './App.module.css'
 import { GithubOutlined } from '@ant-design/icons'
-import { TagDisplayTable } from './components/TagDisplayTable/TagDisplayTable'
 import { BrowserRouter } from 'react-router-dom'
+import classes from './App.module.css'
+import { TagDisplayTable } from './components/TagDisplayTable/TagDisplayTable'
 
 const App = () => (
   <BrowserRouter>

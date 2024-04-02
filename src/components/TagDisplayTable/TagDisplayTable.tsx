@@ -1,7 +1,6 @@
-import { Space, Table, TableColumnsType, TableProps } from 'antd'
+import { Table, TableColumnsType, notification } from 'antd'
 import { Key } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { QueryParams, useTagsQuery } from './useTagQuery/useTagsQuery'
+import { useTagsQuery } from './useTagQuery/useTagsQuery'
 
 import classes from './TagDisplayTable.module.css'
 
@@ -28,40 +27,43 @@ const columns: TableColumnsType<TableData> = [
   },
 ]
 
-const data: TableData[] = [
-  {
-    key: '1',
-    name: 'Tag 1',
-    count: 10,
-  },
-  {
-    key: '2',
-    name: 'Tag 2',
-    count: 20,
-  },
-]
-
 export const TagDisplayTable = () => {
-  const { onChange, data } = useTagsQuery()
+  const { onChange, data, error, isLoading } = useTagsQuery()
+
+  const [api, contextHolder] = notification.useNotification()
+
+  if (error) {
+    api.error({
+      key: 'table-error',
+      message: 'Error',
+      description: 'An error occurred while downloading new data.',
+      duration: 0,
+    })
+  }
+
+  if (!error) {
+    api.destroy('table-error')
+  }
 
   console.log(data)
 
   return (
-    <Table
-      className={classes.root}
-      columns={columns}
-      dataSource={data.map(({ count, name }) => ({
-        count,
-        name,
-        key: count + name,
-      }))}
-      onChange={onChange}
-      scroll={{ y: 240 }}
-      pagination={{
-        showQuickJumper: true,
-        defaultCurrent: 1,
-        total: 500,
-      }}
-    />
+    <>
+      {contextHolder}
+      <Table
+        className={classes.root}
+        columns={columns}
+        //use validation with ZOD narrow the type of data
+        dataSource={data}
+        onChange={onChange}
+        loading={isLoading || !data}
+        scroll={{ y: 240 }}
+        pagination={{
+          showQuickJumper: true,
+          defaultCurrent: 1,
+          total: 500,
+        }}
+      />
+    </>
   )
 }
