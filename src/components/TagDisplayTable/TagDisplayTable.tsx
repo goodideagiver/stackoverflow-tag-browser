@@ -50,6 +50,7 @@ export const TagDisplayTable = () => {
   return (
     <>
       {contextHolder}
+      //TODO zrobić ilość wyświetlanych nad tabelą, a nie pod
       <Table
         className={classes.root}
         columns={columns}
