@@ -1,13 +1,18 @@
 import { TableColumnsType, TableProps } from 'antd'
-import { QueryParams } from './getTagsFromApi/getTagsFromApi'
+import { QueryParams, getTagsFromApi } from './getTagsFromApi/getTagsFromApi'
 import { TableData } from '../TagDisplayTable'
 import { useSearchParams } from 'react-router-dom'
 import { SorterResult } from 'antd/es/table/interface'
+import useSWR from 'swr'
+import { useEffect, useState } from 'react'
 
 type Columns = TableColumnsType<TableData>
 
+const API_URL = 'https://api.stackexchange.com/2.3/tags'
+
 export const useTagsQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [data, setData] = useState([])
 
   const onChange: TableProps<TableData>['onChange'] = (
     pagination,
@@ -46,7 +51,17 @@ export const useTagsQuery = () => {
     })
   }
 
-  const columns: Columns
+  const page = Number(searchParams.get('page')) || 1
+  const pageSize = Number(searchParams.get('pagesize')) || 10
+  const sort = searchParams.get('sort') || 'popular'
+  const order = searchParams.get('order') || 'desc'
 
-  return { onChange, columns }
+  useEffect(() => {
+    getTagsFromApi({ page, pageSize, sort, order }).then((data) => {
+      console.log('data', data)
+      setData(data.items)
+    })
+  }, [page, pageSize, sort, order])
+
+  return { onChange, data }
 }

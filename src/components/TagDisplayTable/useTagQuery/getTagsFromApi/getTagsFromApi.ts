@@ -13,21 +13,27 @@ type TagResponse = {
 }
 
 export type QueryParams = {
-  page: number
-  pageSize: number
-  sort: 'popular' | 'name'
-  order: 'asc' | 'desc'
+  page?: number
+  pageSize?: number
+  sort?: 'popular' | 'name'
+  order?: 'asc' | 'desc'
 }
 
 export const getTagsFromApi = async ({
   page = 1,
-  ...queryParams
+  order = 'desc',
+  pageSize = 10,
+  sort = 'popular',
 }: QueryParams): Promise<TagResponse> => {
   const res = await fetch(
-    `${API_URL}?${objectToQueryParams({ page, ...queryParams })}`
+    `${API_URL}?${objectToQueryParams({ page, order, pageSize, sort, site: 'stackoverflow' })}`,
+    {
+      mode: 'cors',
+      method: 'GET',
+    }
   )
 
-  const data = await res.json()
+  console.log('res', res)
 
-  return data
+  return res.json()
 }

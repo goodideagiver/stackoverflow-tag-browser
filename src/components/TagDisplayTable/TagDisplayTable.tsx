@@ -40,7 +40,9 @@ const data: TableData[] = [
 ]
 
 export const TagDisplayTable = () => {
-  const { onChange } = useTagsQuery()
+  const { onChange, data } = useTagsQuery()
+
+  console.log(data)
 
   return (
     <Space direction='vertical'>
@@ -48,6 +50,7 @@ export const TagDisplayTable = () => {
         columns={columns}
         dataSource={data}
         onChange={onChange}
+        scroll={{ y: 240 }}
         pagination={{
           showQuickJumper: true,
           defaultCurrent: 1,
