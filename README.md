@@ -35,7 +35,6 @@ Powyższe załatwia podpunkty:
 
 - liczba elementów na stronie konfigurowalna przez pole liczbowe nad tabelą/listą
 - wybór pola i kierunku sortowania przez element UI własnego wyboru/projektu
-- przygotować odpowiednie stany dla etapu ładowania danych
 
 ### Wykorzystać gotową bibliotekę komponentów UI, np. MUI
 
@@ -49,6 +48,12 @@ Dzięki React Routerowi mogę przechowywać stan aplikacji w URLu, co pozwala na
 
 Do pobiera danych użyłem SWR hook, ponieważ jest bardzo prosty w użyciu i idealnie nadaje się do tego zadania. Podoba mi się w nim to, że w przypadku błędu pobierania danych, można łatwo obsłużyć błąd i wyświetlić odpowiedni komunikat oraz ponowne pobieranie danych po np. przywróceniu połączenia jest automatyczne. Zaimplementowałem też go w taki sposób, że można przeglądać wcześniej pobrane dane, np. jeśli podczas przeglądania dostaniemy błąd z powodu braku internetu, to możemy cofnąć się o jedną stronę i przeglądać stare dane.
 
+### Przygotować odpowiednie stany dla etapu ładowania danych i błędów przy pobieraniu
+
+Podczas ładowania danych tabela ma stan `loading` i wtedy pojawia się na niej animacja wskazująca na ładowanie.
+
+W przypadku błędu pobierania danych, wyświetla się komunikat w prawym górnym rogu o błędzie, znika automatycznie po przywróceniu połączenia, albo zniknięciu błędu.
+
 ### Rozwiązanie opublikować w repozytorium GitHub
 
 👍
@@ -56,3 +61,7 @@ Do pobiera danych użyłem SWR hook, ponieważ jest bardzo prosty w użyciu i id
 ### Całość powinna się uruchamiać wyłącznie po wykonaniu komend "npm ci", "npm start"
 
 Można uruchomić aplikację za pomocą komendy `npm start`.
+
+### Przygotować Storybook do prezentacji wykorzystanych komponentów składowych aplikacji
+
+⚠️ WIP ⚠️
