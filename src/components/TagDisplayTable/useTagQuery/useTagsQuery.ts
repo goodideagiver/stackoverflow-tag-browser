@@ -6,16 +6,7 @@ import { TableData } from '../TagDisplayTable'
 import { API_URL, DEFAULT_SEARCH_PARAMS } from './constants'
 import { fetcher } from './fetcher'
 import { objectToQueryParams } from './objectToQueryParams'
-
-export type TagResponse = {
-  items: {
-    name: string
-    count: number
-  }[]
-  has_more: boolean
-  quota_max: number
-  quota_remaining: number
-}
+import { TagsResponse, tagsSchema } from './tagsSchema'
 
 export type QueryParams = {
   page?: number
@@ -69,20 +60,20 @@ export const useTagsQuery = () => {
 
   const fetchUrl = `${API_URL}?${objectToQueryParams({ page, order, pageSize, sort, site: 'stackoverflow' })}`
 
-  console.log('fetchUrl', fetchUrl)
+  const { data: response, ...swrProps } = useSWR<TagsResponse>(
+    fetchUrl,
+    fetcher
+  )
 
-  const swrProps = useSWR<TagResponse>(fetchUrl, fetcher)
+  let data: TableData[] = []
 
-  const data =
-    (swrProps.data?.items &&
-      swrProps.data?.items.map(
-        ({ name, count }: { name: string; count: number }) => ({
-          key: name + count,
-          name,
-          count,
-        })
-      )) ||
-    swrProps.data
+  if (tagsSchema.safeParse(response).success && response) {
+    data = response.items.map(({ name, count }) => ({
+      key: name + count,
+      name,
+      count,
+    }))
+  }
 
   return { onChange, ...swrProps, data }
 }

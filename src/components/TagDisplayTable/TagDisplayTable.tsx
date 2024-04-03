@@ -3,12 +3,11 @@ import { Key } from 'react'
 import { useTagsQuery } from './useTagQuery/useTagsQuery'
 
 import classes from './TagDisplayTable.module.css'
+import { Tag } from './useTagQuery/tagsSchema'
 
 export type TableData = {
   key: Key
-  name: string
-  count: number
-}
+} & Tag
 
 const columns: TableColumnsType<TableData> = [
   {
@@ -45,15 +44,12 @@ export const TagDisplayTable = () => {
     api.destroy('table-error')
   }
 
-  console.log(data)
-
   return (
     <>
       {contextHolder}
       <Table
         className={classes.root}
         columns={columns}
-        //use validation with ZOD narrow the type of data
         dataSource={data}
         onChange={onChange}
         loading={isLoading || !data}
