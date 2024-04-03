@@ -46,7 +46,7 @@ Do przechowywania stanu postanowiłem podejść z użyciem React Router, poniewa
 
 Dzięki React Routerowi mogę przechowywać stan aplikacji w URLu, co pozwala na łatwe udostępnianie linków do konkretnych stanów aplikacji, oraz można nawigować między stronami tabeli.
 
-Do pobiera danych użyłem SWR hook, ponieważ jest bardzo prosty w użyciu i idealnie nadaje się do tego zadania. Podoba mi się w nim to, że w przypadku błędu pobierania danych, można łatwo obsłużyć błąd i wyświetlić odpowiedni komunikat oraz ponowne pobieranie danych po np. przywróceniu połączenia jest automatyczne. Zaimplementowałem też go w taki sposób, że można przeglądać wcześniej pobrane dane, np. jeśli podczas przeglądania dostaniemy błąd z powodu braku internetu, to możemy cofnąć się o jedną stronę i przeglądać stare dane.
+Do pobierania danych użyłem SWR hook, ponieważ jest bardzo prosty w użyciu i idealnie nadaje się do tego zadania. Podoba mi się w nim to, że w przypadku błędu pobierania danych, można łatwo obsłużyć błąd i wyświetlić odpowiedni komunikat oraz ponowne pobieranie danych po np. przywróceniu połączenia jest automatyczne. Zaimplementowałem też go w taki sposób, że można przeglądać wcześniej pobrane dane, np. jeśli podczas przeglądania dostaniemy błąd z powodu braku internetu, to możemy cofnąć się o jedną stronę i przeglądać stare dane.
 
 ### Przygotować odpowiednie stany dla etapu ładowania danych i błędów przy pobieraniu
 

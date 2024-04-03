@@ -1,8 +1,9 @@
-import { ConfigProvider, Divider, Layout, theme } from 'antd'
+import { ConfigProvider, Layout, theme } from 'antd'
 
-import { GithubOutlined } from '@ant-design/icons'
 import { BrowserRouter } from 'react-router-dom'
 import classes from './App.module.css'
+import { Footer } from './components/Footer/Footer'
+import { Header } from './components/Header/Header'
 import { TagDisplayTable } from './components/TagDisplayTable/TagDisplayTable'
 
 const App = () => (
@@ -18,18 +19,11 @@ const App = () => (
       }}
     >
       <Layout className={classes.root}>
-        <Layout.Header className={classes.header}>
-          <h1 className={classes.title}>Stackoverflow Tag Display</h1>
-        </Layout.Header>
+        <Header />
         <Layout.Content className={classes.content}>
           <TagDisplayTable />
         </Layout.Content>
-        <Layout.Footer>
-          <Divider />
-          <a href='https://github.com/goodideagiver/stackoverflow-tag-browser'>
-            <GithubOutlined /> Project repository
-          </a>
-        </Layout.Footer>
+        <Footer />
       </Layout>
     </ConfigProvider>
   </BrowserRouter>

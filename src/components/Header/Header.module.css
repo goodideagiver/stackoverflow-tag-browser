@@ -1,3 +1,11 @@
-.root {
-  background-color: red;
+.header {
+  height: fit-content;
+  text-align: center;
+  padding: 1rem 0;
+  background-color: transparent;
+}
+
+.title {
+  font-size: 1rem;
+  margin: 0;
 }
