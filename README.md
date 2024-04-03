@@ -79,3 +79,10 @@ Zdaję sobie sprawę, że wykonałem zadanie w trochę inny sposób niż jest to
 > Liczba elementów na stronie konfigurowalna przez pole liczbowe **nad** tabelą/listą
 
 U mnie wszystkie kontrolki znajdują się pod tabelą, bo w ant design w komponencie Table domyślnie te wszystkie opcje są już obsłużone, ale nie da się ich rozmieszczać dowolnie. Można je ukryć i samemu odwzorować te funkcjonalności, jest w antd dostępny komponent Pagination, a z wybieraniem ilości elementów na stronie zrobiłbym własny komponent Form, ale z uwagi, że otrzymanie zadania zbiegło się ze świętami, nie miałem czasu na zrobienie tego.
+
+
+
+https://github.com/goodideagiver/stackoverflow-tag-browser/assets/55458485/3a011efc-62c0-4e92-8ad4-a3c4b2eef992
+
+
+
