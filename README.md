@@ -19,6 +19,12 @@ npm install
 npm start
 ```
 
+## Jak uruchomić Storybooka
+
+```bash
+npm run storybook
+```
+
 ## Moje rozwiązania
 
 ### Stronicowana tabela lub lista tagów wraz liczbą powiązanych postów (pole count)
@@ -64,4 +70,12 @@ Można uruchomić aplikację za pomocą komendy `npm start`.
 
 ### Przygotować Storybook do prezentacji wykorzystanych komponentów składowych aplikacji
 
-⚠️ WIP ⚠️
+Nie zdążyłem przygotować konkretnego Storybooka, nie używałem go wcześniej. Wydaje mi się, że powinienem komponent `TagDisplayTable` przenieść do osobnego pliku i zrobić z niego osobny komponent, który bym przetestował w Storybooku w taki sposób, żeby można było zmieniać propsy i sprawdzać jak zachowuje się tabela w różnych przypadkach. Obecnie próbowałem zrobić mock hooka użytego w komponencie `TagDisplayTable`, ale nie udało mi się tego zrobić i czytałem w internecie, że raczej ludzi robili to jak opisałem wyżej.
+
+### Rozmieszenie elementów
+
+Zdaję sobie sprawę, że wykonałem zadanie w trochę inny sposób niż jest to opisane w wymaganiach.
+
+> Liczba elementów na stronie konfigurowalna przez pole liczbowe **nad** tabelą/listą
+
+U mnie wszystkie kontrolki znajdują się pod tabelą, bo w ant design w komponencie Table domyślnie te wszystkie opcje są już obsłużone, ale nie da się ich rozmieszczać dowolnie. Można je ukryć i samemu odwzorować te funkcjonalności, jest w antd dostępny komponent Pagination, a z wybieraniem ilości elementów na stronie zrobiłbym własny komponent Form, ale z uwagi, że otrzymanie zadania zbiegło się ze świętami, nie miałem czasu na zrobienie tego.
